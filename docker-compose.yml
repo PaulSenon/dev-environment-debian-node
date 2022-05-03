@@ -1,0 +1,30 @@
+version: '3.5'
+
+services:
+  devenv:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NODE_VERSION: '16'
+    working_dir: /home/dev
+    container_name: devenv
+    environment:
+      NODE_PORT: 8000
+    dns:
+      - 10.2.61.10
+      - 10.2.61.11
+    dns_search: ## need euronews "search" record to resolve solr domains
+      - dom.euronews.com
+    ports:
+      - "8000:8000"
+      - "9229:9229" # node debug port
+    restart: unless-stopped
+    volumes:
+      - ./dev:/home/dev
+      - ~/.ssh:/root/.ssh:ro # to be able to read bitbucket repos (npm dependencies)
+    command: tail -f /dev/null
+
+networks:
+  default:
+    name: dockerLocal

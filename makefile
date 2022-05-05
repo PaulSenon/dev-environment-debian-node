@@ -1,7 +1,7 @@
 COMPOSE = docker-compose -f docker-compose.yml
 EXEC?= $(COMPOSE) exec devenv
 
-install: docker-pull docker-build
+install: create-dir docker-pull docker-build
 dev: docker-start bash
 stop: docker-stop
 clean: docker-clean
@@ -34,3 +34,6 @@ clean-all: ## Remove all unused Docker objetcs
 
 bash: # open shell for ad-hock commands
 	$(EXEC) /bin/zsh
+
+create-dir: # needed to have current user rights
+	mkdir -p dev

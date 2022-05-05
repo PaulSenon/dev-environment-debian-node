@@ -6,24 +6,30 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
+        # CUSTOMIZE NODE VERSION HERE (string passed to nvm install)
         NODE_VERSION: '16'
-    working_dir: /home/dev
-    container_name: devenv
+    working_dir: /home/dev/src
     environment:
-      NODE_PORT: 8000
+      # CUSTOMIZE ENVIRONMENT VARIABLES HERE (you may also use dotenv)
+      NODE_PORT: 3000
+      PORT: 8000
     dns:
+      # CUSTOMIZE PRIVATE DNS HERE
       - 10.2.61.10
       - 10.2.61.11
-    dns_search: ## need euronews "search" record to resolve solr domains
+    dns_search:
+      # CUSTOMIZE PRIVATE DNS SEARCH HERE
       - dom.euronews.com
     ports:
+      # CUSTOMIZE CONTAINER PORT BINDINGS HERE (host:container)
+      - "3000:3000"
       - "8000:8000"
       - "9229:9229" # node debug port
     restart: unless-stopped
     volumes:
-      - ./dev:/home/dev
+      - ./dev:/home/dev/src
       - ~/.ssh:/root/.ssh:ro # to be able to read bitbucket repos (npm dependencies)
-    command: tail -f /dev/null
+    command: tail -f /dev/null # to never stop
 
 networks:
   default:

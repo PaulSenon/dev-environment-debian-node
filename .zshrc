@@ -1,3 +1,7 @@
+#######################################################################################
+# HERE YOU CAN WRITE YOUR OWN STUFF. IT WILL BE APPENDED TO .zshrc WHEN `make install``
+#######################################################################################
+
 # git
 alias gpull='git pull origin $(git symbolic-ref --short HEAD)'
 alias gpush='git push origin $(git symbolic-ref --short HEAD)'

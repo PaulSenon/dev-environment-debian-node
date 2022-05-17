@@ -27,7 +27,7 @@ RUN useradd -m -d /home/${USER} ${USER} && \
 USER dev
 WORKDIR /home/dev
 
-## install zsh
+# install zsh
 COPY .zshrc .zshrctemp
 RUN sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 RUN echo "source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> ~/.zshrc && \
@@ -35,7 +35,9 @@ RUN echo "source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     cat .zshrctemp >> ~/.zshrc && \
     rm .zshrctemp
 
-
+# setup code templates
+COPY templates .templates
+RUN sudo find .templates -type f -regex '.*\.\(py\|sh\|bash\)$' -exec chmod +x {} +
 
 ########################
 # CUSTOM CONFIGURATION #

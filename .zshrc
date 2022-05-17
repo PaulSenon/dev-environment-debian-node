@@ -9,8 +9,8 @@ alias gst='git status'
 alias grestore='git reset --soft HEAD~1 && git restore --staged .'
 alias gupdate='gpull --ff-only && git fetch'
 
-# setup basic node project
-alias setup='yarn init --yes && echo "console.log(\"Hello World\")" > index.js && json -I -f package.json -e "this.scripts={\"start\": \"node index.js\"}"'
+# tempalte setupper
+alias setup='~/.templates/setupTemplate.sh'
 
 # nvm
 export NVM_DIR="$HOME/.nvm"

@@ -12,33 +12,25 @@ if [ -z "$1" ]; then
       echo "  - $name"
     fi
   done
-  # for i in $(ls -d ~/.templates/*/); do
-  #   ## remove the trailing slash
-  #   i=${i%?}
-  #   ## remove the leading ./
-  #   i=${i#./}
-  #   ## remove the templates/
-  #   i=${i#templates/}
-  #   ## print the folder name
-  #   echo "  - $i"
-  # done
   exit 1
 fi
 
 # check if $1 is a folder name in ~/.templates
-if [ ! -d "~/.templates/$1" ]; then
+if [ ! -d $HOME/.templates/$1 ]; then
   echo "Template $1 not found"
   exit 1
 fi
+# check if $1 is a folder name in ~/.templates (but another way)
+
 
 # do the setup if ./templates/$1/setup.sh exists
-if [ -f "~/.templates/$1/setup.sh" ]; then
+if [ -f $HOME/.templates/$1/setup.sh ]; then
   echo "Running setup for $1"
-  ~/.templates/$1/setup.sh
+  $HOME/.templates/$1/setup.sh
 fi
 
 # copy the template files
 echo "Copying template files"
-cp -r ~/.templates/$1/src .
+cp -r $HOME/.templates/$1/src .
 
 all done

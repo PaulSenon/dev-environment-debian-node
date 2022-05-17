@@ -22,6 +22,9 @@ if [ ! -d $HOME/.templates/$1 ]; then
 fi
 # check if $1 is a folder name in ~/.templates (but another way)
 
+# setup yarn defaults
+yarn init -y
+json -I -f package.json -e "this.scripts={\"start\":\"node index.js\"}"
 
 # do the setup if ./templates/$1/setup.sh exists
 if [ -f $HOME/.templates/$1/setup.sh ]; then
@@ -32,5 +35,3 @@ fi
 # copy the template files
 echo "Copying template files"
 cp -r $HOME/.templates/$1/src .
-
-all done

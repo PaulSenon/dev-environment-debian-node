@@ -4,6 +4,7 @@ EXEC?= $(COMPOSE) exec devenv
 install: create-dir docker-pull docker-build
 dev: docker-start bash
 stop: docker-stop
+stop-all: docker-stop-all
 clean: docker-clean
 ######################
 # Docker management  #
@@ -24,11 +25,14 @@ docker-start-attached: ## start docker containers
 docker-stop: ## stop docker containers
 	$(COMPOSE) stop --timeout=0
 
+docker-stop-all: 
+	docker stop $$(docker ps -a -q --filter "name=^.*_devenv.*$$")
+
 docker-clean: ## Clean docker container with "exited" status
-	docker rm $$(docker ps -qa --no-trunc --filter "status=exited" --filter "name=devenv*")
+	docker rm $$(docker ps -qa --no-trunc --filter "status=exited" --filter "name=^.*_devenv.*$$")
 
 clean-all: ## Remove all unused Docker objetcs
-	docker stop $$(docker ps -a -q --filter "devenv*")
+	docker stop $$(docker ps -a -q --filter "name=^.*_devenv.*$$")
 	docker system prune
 	docker volume prune
 

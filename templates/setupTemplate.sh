@@ -34,4 +34,4 @@ fi
 
 # copy the template files
 echo "Copying template files"
-cp -r $HOME/.templates/$1/src .
+cp -r $HOME/.templates/$1/src/* .
